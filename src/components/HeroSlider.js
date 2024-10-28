@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const images = [
   '/images/Sirenelor2.webp',
-  '/api/placeholder/1920/1080?text=Luxury+Apartment',
-  '/api/placeholder/1920/1080?text=Commercial+Space',
-  '/api/placeholder/1920/1080?text=Green+Living'
+  '/images/Sirenelor2.webp',
+  '/images/Sirenelor2.webp',
+  '/images/Sirenelor2.webp',
 ];
 
 const variants = {
