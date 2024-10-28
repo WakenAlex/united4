@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin'); // adaugă această linie
 
 module.exports = {
   entry: './src/index.js',
@@ -23,14 +24,33 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
-      // Adaugă și suport pentru imagini
       {
         test: /\.(png|jpg|jpeg|gif|webp)$/i,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name][ext]' // păstrează structura de foldere pentru imagini
+        }
       }
     ]
   },
   resolve: {
     extensions: ['.js', '.jsx']
-  }
+  },
+  plugins: [  // adaugă această secțiune
+    new CopyWebpackPlugin({
+      patterns: [
+        { 
+          from: 'images',  // folderul sursă cu imagini
+          to: 'images'     // folderul destinație în dist
+        },
+        { 
+          from: '*.html',  // alte fișiere HTML
+          to: '[name][ext]',
+          globOptions: {
+            ignore: ['index.html'] // exclude index.html pentru că e tratat separat
+          }
+        }
+      ]
+    })
+  ]
 };
