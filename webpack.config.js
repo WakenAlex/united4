@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // adaugă această linie
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -28,7 +28,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|webp)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name][ext]' // păstrează structura de foldere pentru imagini
+          filename: 'images/[name][ext]'
         }
       }
     ]
@@ -36,19 +36,23 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
-  plugins: [  // adaugă această secțiune
+  plugins: [
     new CopyWebpackPlugin({
       patterns: [
         { 
-          from: 'images',  // folderul sursă cu imagini
-          to: 'images'     // folderul destinație în dist
+          from: 'images',
+          to: 'images'
         },
         { 
-          from: '*.html',  // alte fișiere HTML
+          from: '*.html',
           to: '[name][ext]',
           globOptions: {
-            ignore: ['index.html'] // exclude index.html pentru că e tratat separat
+            ignore: ['index.html']
           }
+        },
+        { 
+          from: '*.css',  // Copiază toate fișierele CSS
+          to: '[name][ext]'
         }
       ]
     })
