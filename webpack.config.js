@@ -4,32 +4,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = {
   entry: './src/index.js',
   output: {
-    filename: '[name].[contenthash].js',  // Adăugăm contenthash pentru cache busting
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-    chunkFilename: '[name].[contenthash].chunk.js'  // Pentru code splitting
-  },
-  optimization: {
-    moduleIds: 'deterministic',  // Ajută la stabilitatea hash-urilor
-    runtimeChunk: 'single',      // Extrage runtime-ul webpack
-    splitChunks: {
-      chunks: 'all',
-      minSize: 20000,
-      maxSize: 70000,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
-          chunks: 'all',
-        },
-        components: {
-          test: /[\\/]src[\\/]components[\\/]/,
-          name: 'components',
-          chunks: 'all',
-          enforce: true,
-        }
-      },
-    },
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -39,8 +16,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['@babel/plugin-syntax-dynamic-import']  // Pentru import dinamic
+            presets: ['@babel/preset-env', '@babel/preset-react']
           }
         }
       },
@@ -52,17 +28,13 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|webp)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[hash][ext]'  // Adăugăm hash pentru cache busting
+          filename: 'images/[name][ext]'
         }
       }
     ]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
-    alias: {
-      '@components': path.resolve(__dirname, 'src/components/'),  // Pentru importuri mai curate
-      '@images': path.resolve(__dirname, 'src/images/'),
-    }
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new CopyWebpackPlugin({
@@ -79,24 +51,10 @@ module.exports = {
           }
         },
         { 
-          from: '*.css',
-          to: '[name].[contenthash][ext]'  // Adăugăm contenthash pentru CSS
+          from: '*.css',  // Acum va lua CSS-urile din folderul principal
+          to: '[name][ext]'
         }
       ]
     })
-  ],
-  // Adăugăm configurație pentru development
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    open: true,
-    port: 3000,
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    compress: true,
-  },
-  // Optimizări pentru producție
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'eval-source-map',
+  ]
 };
