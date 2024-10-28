@@ -20,8 +20,13 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,  // regula pentru CSS
+        test: /\.css$/,
         use: ['style-loader', 'css-loader']
+      },
+      // Adaugă și suport pentru imagini
+      {
+        test: /\.(png|jpg|jpeg|gif|webp)$/i,
+        type: 'asset/resource'
       }
     ]
   },

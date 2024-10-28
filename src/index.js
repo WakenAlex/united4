@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ContactForm from './components/ContactForm';
 import HeroSlider from './components/HeroSlider';
+import './styles.css';
+
 
 // Renderizare ContactForm
 ReactDOM.render(
