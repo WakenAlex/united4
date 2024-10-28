@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import ContactForm from './components/ContactForm';
 import HeroSlider from './components/HeroSlider';
 import { LanguageProvider, LanguageSwitcher, TranslatedText } from './components/LanguageSwitcher';
-import './styles/LanguageSwitcher.css';
 import '../styles.css';
 
 // Componenta Header actualizată cu traduceri
