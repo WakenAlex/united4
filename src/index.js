@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import ContactForm from './components/ContactForm';
 import HeroSlider from './components/HeroSlider';
-import './styles.css';
+import '../styles.css';
 
 
 // Renderizare ContactForm
