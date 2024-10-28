@@ -245,20 +245,18 @@ export const TranslatedText = ({ textKey }) => {
 
 // Componenta pentru comutatorul de limbă
 const LanguageSwitcher = () => {
-  const { language, toggleLanguage } = useLanguage();
-  
-  return (
-    <button
-      onClick={toggleLanguage}
-      className="flex items-center gap-2 px-3 py-2 rounded-md bg-white/10 hover:bg-white/20 transition-colors duration-200"
-      aria-label="Switch language"
-    >
-      <Globe className="w-4 h-4" />
-      <span className="text-sm font-medium">
-        {language.toUpperCase()}
-      </span>
-    </button>
-  );
+    const { language, toggleLanguage } = useLanguage();
+    
+    return (
+      <button
+        onClick={toggleLanguage}
+        className="language-switcher"
+        aria-label="Switch language"
+      >
+        <Globe className="w-5 h-5" />
+        <span>{language.toUpperCase()}</span>
+      </button>
+    );
 };
 
 export default LanguageSwitcher;
