@@ -832,3 +832,27 @@ footer {
 #scrollTopBtn:hover {
     background-color: var(--primary-color);
 }
+
+/* Loading spinner */
+ .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    color: var(--primary-color);
+  }
+  
+  .loading-spinner::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

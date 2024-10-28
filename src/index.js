@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import ContactForm from './components/ContactForm';
-import HeroSlider from './components/HeroSlider';
 import '../styles.css';
 
-// Funcție pentru a renderiza componente în siguranță
+// Lazy loading pentru componente
+const ContactForm = React.lazy(() => import('./components/ContactForm'));
+const HeroSlider = React.lazy(() => import('./components/HeroSlider'));
+
+// Componentă simplă pentru loading state
+const LoadingSpinner = () => (
+  <div className="loading-spinner">
+    Se încarcă...
+  </div>
+);
+
+// Funcție actualizată pentru a renderiza componente cu Suspense
 const renderComponent = (Component, elementId) => {
   const container = document.getElementById(elementId);
   if (container) {
     const root = createRoot(container);
     root.render(
       <React.StrictMode>
-        <Component />
+        <Suspense fallback={<LoadingSpinner />}>
+          <Component />
+        </Suspense>
       </React.StrictMode>
     );
   }
@@ -23,18 +34,20 @@ document.addEventListener('DOMContentLoaded', () => {
   renderComponent(HeroSlider, 'hero-slider-root');
 });
 
-// Renderizare ContactForm
-ReactDOM.render(
-  <React.StrictMode>
-    <ContactForm />
-  </React.StrictMode>,
-  document.getElementById('contact-form-root')
-);
+// Șterge aceste renderizări duplicate deoarece folosim deja renderComponent
+// ReactDOM.render și cele două blocuri de cod de mai jos pot fi șterse
+// deoarece sunt redundante cu addEventListener de mai sus
 
-// Renderizare HeroSlider
-ReactDOM.render(
-    <React.StrictMode>
-      <HeroSlider />
-    </React.StrictMode>,
-    document.getElementById('hero-slider-root')
-  );  
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <ContactForm />
+//   </React.StrictMode>,
+//   document.getElementById('contact-form-root')
+// );
+
+// ReactDOM.render(
+//     <React.StrictMode>
+//       <HeroSlider />
+//     </React.StrictMode>,
+//     document.getElementById('hero-slider-root')
+//   );
